@@ -9,13 +9,15 @@ package game;
  * @author artuz
  */
 
-import javax.swing.JFrame; //JFrame é uma extenção ja existente do java
-
-
+import Modelo.Inicio;
+import javax.swing.JFrame; /*JFrame é uma extenção ja existente do java 
+                           "Fornece uma janela com atributos padrão, como barra de títulos, botões de minimizar, maximizar e fechar"
+                           */
 public class Container extends JFrame{
     
     public Container(){
         
+        add(new Inicio());
         setTitle("The Defender Of The Pixel Village");
         setSize(1920, 1080); //resolução
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //ultizilado para o X da janela fechar o programa
