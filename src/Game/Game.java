@@ -19,17 +19,23 @@ public class Game extends JFrame{
       "Fornece uma janela com atributos padrão, como barra de títulos, botões de minimizar, maximizar e fechar"
     */
     
-    ImageIcon iconFistPart = new ImageIcon(getClass().getResource("FistPart.jpg"));
-    ImageIcon iconPlayer_Frente = new ImageIcon(getClass().getResource("Player_Frente.png"));
-    ImageIcon iconPlayer_Costas = new ImageIcon(getClass().getResource("Player_Costas.png"));
-    ImageIcon iconPlayer_esquerdo = new ImageIcon(getClass().getResource("Player_esquerdo.png"));
-    ImageIcon iconPlayer_direito = new ImageIcon(getClass().getResource("Player_direito.png"));
+    ImageIcon iconFistPart = new ImageIcon(getClass().getResource("/res/FistPart.jpg"));
+    ImageIcon iconPlayer_Frente = new ImageIcon(getClass().getResource("/res/Player_Frente.png"));
+    ImageIcon iconPlayer_Costas = new ImageIcon(getClass().getResource("/res/Player_Costas.png"));
+    ImageIcon iconPlayer_esquerdo = new ImageIcon(getClass().getResource("/res/Player_esquerdo.png"));
+    ImageIcon iconPlayer_direito = new ImageIcon(getClass().getResource("/res/Player_direito.png"));
+    ImageIcon iconNPC = new ImageIcon(getClass().getResource("/res/NPC.png"));
     
     JLabel lFistPart = new JLabel(iconFistPart);
     JLabel lPlayer = new JLabel(iconPlayer_Frente);
+    JLabel lNPC = new JLabel(iconNPC);
+    
     
     int posPlayerX = 350;
     int posPlayerY = 750;
+    
+    int posNPCX = 800;
+    int posNPCY = 500;
     
     //construtor de inicialização
     public Game(){
@@ -41,6 +47,7 @@ public class Game extends JFrame{
     public void editComp(){
         lFistPart.setBounds(0, 0, 1920, 1080);
         lPlayer.setBounds(posPlayerX, posPlayerY, 120, 120);
+        lNPC.setBounds(posNPCX, posNPCY, 120, 120);
     }
     
     public void EditJanela(){
@@ -53,8 +60,10 @@ public class Game extends JFrame{
         setResizable(true);
         setLocationRelativeTo(null);
         
+        add(lNPC);
         add(lPlayer);
         add(lFistPart);
+        
      /*   
         setSize resolução
         setDefaultCloseOperation ultizilado para o X da janela fechar o programa
