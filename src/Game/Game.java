@@ -10,6 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+
+
 /**
  *
  * @author artuz
@@ -25,18 +27,24 @@ public class Game extends JFrame{
     ImageIcon iconPlayer_esquerdo = new ImageIcon(getClass().getResource("/res/Player_esquerdo.png"));
     ImageIcon iconPlayer_direito = new ImageIcon(getClass().getResource("/res/Player_direito.png"));
     ImageIcon iconNPC = new ImageIcon(getClass().getResource("/res/NPC.png"));
+    ImageIcon iconWIN = new ImageIcon(getClass().getResource("/res/you_win.jpg"));
     
     JLabel lFistPart = new JLabel(iconFistPart);
     JLabel lPlayer = new JLabel(iconPlayer_Frente);
     JLabel lNPC = new JLabel(iconNPC);
-    
+    JLabel lWIN = new JLabel(iconWIN);
     
     int posPlayerX = 350;
     int posPlayerY = 750;
+    int widthPlayer = 120;
+    int heightPlayer = 120;
+            
+    int posNPCX = 1500;
+    int posNPCY = 20;
+    int widthNPC = 120;
+    int heightNPC = 120;
     
-    int posNPCX = 800;
-    int posNPCY = 500;
-    
+
     //construtor de inicialização
     public Game(){
         EditJanela();
@@ -46,8 +54,9 @@ public class Game extends JFrame{
     
     public void editComp(){
         lFistPart.setBounds(0, 0, 1920, 1080);
-        lPlayer.setBounds(posPlayerX, posPlayerY, 120, 120);
-        lNPC.setBounds(posNPCX, posNPCY, 120, 120);
+        lPlayer.setBounds(posPlayerX, posPlayerY, widthPlayer, heightPlayer);
+        lNPC.setBounds(posNPCX, posNPCY, widthNPC, heightNPC);
+        lWIN.setBounds(0, 0, 1920, 1080);
     }
     
     public void EditJanela(){
@@ -60,6 +69,7 @@ public class Game extends JFrame{
         setResizable(true);
         setLocationRelativeTo(null);
         
+
         add(lNPC);
         add(lPlayer);
         add(lFistPart);
@@ -78,7 +88,32 @@ public class Game extends JFrame{
  
     }
     
-    //Comandos de movimento Player
+    
+    //Colisão
+    public boolean colisao(JLabel lPlayer, JLabel lNPC) {
+        
+        int xplayer = lPlayer.getX();
+        int yplayer = lPlayer.getY();
+        int larguraplayer = lPlayer.getWidth();
+        int alturaplayer = lPlayer.getHeight();
+
+        int xnpc = lNPC.getX();
+        int ynpc = lNPC.getY();
+        int largura2 = lNPC.getWidth();
+        int altura2 = lNPC.getHeight();
+
+        // Verifica se há sobreposição nas coordenadas x e y
+        if (xplayer < xnpc + largura2 &&
+            xplayer + larguraplayer > xnpc &&
+            yplayer < ynpc + altura2 &&
+            yplayer + alturaplayer > ynpc) {
+            return true; 
+        }
+        return false; 
+    }
+    
+    
+    //Comandos de movimento Player + teste abordagem da colisão
     public void addMovimento(){
         addKeyListener(new  KeyListener() {
             
@@ -107,13 +142,28 @@ public class Game extends JFrame{
                     lPlayer.setIcon(iconPlayer_direito);
                 }
                 lPlayer.setBounds(posPlayerX, posPlayerY, 120, 120);
+                
+                //abordagem da colisão
+                if (colisao(lPlayer, lNPC)) {
+                System.out.println("Player e NPC colidiram");
+                remove(lFistPart);
+                remove(lPlayer);
+                remove(lNPC);
+                add(lWIN);
+                repaint();
+               
+                }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-            
             }
-            //   "System.out.println(e.getKeyCode());" ultilizado para identificar a numeração das teclas
+           //   "System.out.println(e.getKeyCode());" ultilizado para identificar a numeração das teclas
         });
-    }
+        
+        }
+
 }
+  
+
+
