@@ -21,28 +21,28 @@ public class Game extends JFrame{
       "Fornece uma janela com atributos padrão, como barra de títulos, botões de minimizar, maximizar e fechar"
     */
     
-    ImageIcon iconFistPart = new ImageIcon(getClass().getResource("/res/FistPart.jpg"));
+    ImageIcon iconMAP = new ImageIcon(getClass().getResource("/res/Final_Game.jpg"));
     ImageIcon iconPlayer_Frente = new ImageIcon(getClass().getResource("/res/Player_Frente.png"));
     ImageIcon iconPlayer_Costas = new ImageIcon(getClass().getResource("/res/Player_Costas.png"));
     ImageIcon iconPlayer_esquerdo = new ImageIcon(getClass().getResource("/res/Player_esquerdo.png"));
     ImageIcon iconPlayer_direito = new ImageIcon(getClass().getResource("/res/Player_direito.png"));
-    ImageIcon iconNPC = new ImageIcon(getClass().getResource("/res/NPC.png"));
+    ImageIcon iconEnemy = new ImageIcon(getClass().getResource("/res/enemy.png"));
     ImageIcon iconWIN = new ImageIcon(getClass().getResource("/res/you_win.jpg"));
     
-    JLabel lFistPart = new JLabel(iconFistPart);
+    JLabel lMAP = new JLabel(iconMAP);
     JLabel lPlayer = new JLabel(iconPlayer_Frente);
-    JLabel lNPC = new JLabel(iconNPC);
+    JLabel lENEMY = new JLabel(iconEnemy);
     JLabel lWIN = new JLabel(iconWIN);
     
-    int posPlayerX = 350;
-    int posPlayerY = 750;
-    int widthPlayer = 120;
-    int heightPlayer = 120;
+    int posPlayerX = 200;
+    int posPlayerY = 770;
+    int widthPlayer = 91;
+    int heightPlayer = 113;
             
-    int posNPCX = 1500;
-    int posNPCY = 20;
-    int widthNPC = 120;
-    int heightNPC = 120;
+    int posENEMYX = 300;
+    int posENEMYY = 30;
+    int widthENEMY = 45;
+    int heightENEMY = 108;
     
 
     //construtor de inicialização
@@ -53,9 +53,9 @@ public class Game extends JFrame{
     }
     
     public void editComp(){
-        lFistPart.setBounds(0, 0, 1920, 1080);
+        lMAP.setBounds(0, 0, 1920, 1080);
         lPlayer.setBounds(posPlayerX, posPlayerY, widthPlayer, heightPlayer);
-        lNPC.setBounds(posNPCX, posNPCY, widthNPC, heightNPC);
+        lENEMY.setBounds(posENEMYX, posENEMYY, widthENEMY, heightENEMY);
         lWIN.setBounds(0, 0, 1920, 1080);
     }
     
@@ -70,9 +70,9 @@ public class Game extends JFrame{
         setLocationRelativeTo(null);
         
 
-        add(lNPC);
+        add(lENEMY);
         add(lPlayer);
-        add(lFistPart);
+        add(lMAP);
         
      /*   
         setSize resolução
@@ -89,7 +89,7 @@ public class Game extends JFrame{
     }
     
     
-    //Colisão
+    //Colisão ENEMY
     public boolean colisao(JLabel lPlayer, JLabel lNPC) {
         
         int xplayer = lPlayer.getX();
@@ -97,16 +97,16 @@ public class Game extends JFrame{
         int larguraplayer = lPlayer.getWidth();
         int alturaplayer = lPlayer.getHeight();
 
-        int xnpc = lNPC.getX();
-        int ynpc = lNPC.getY();
-        int largura2 = lNPC.getWidth();
-        int altura2 = lNPC.getHeight();
+        int xenemy = lNPC.getX();
+        int yenemy = lNPC.getY();
+        int larguraenemy = lNPC.getWidth();
+        int alturaenemy = lNPC.getHeight();
 
-        // Verifica se há sobreposição nas coordenadas x e y
-        if (xplayer < xnpc + largura2 &&
-            xplayer + larguraplayer > xnpc &&
-            yplayer < ynpc + altura2 &&
-            yplayer + alturaplayer > ynpc) {
+        // Verifica se há sobreposição nas coordenadas x e y (PLAYER E ENEMY)
+        if (xplayer < xenemy + larguraenemy &&
+            xplayer + larguraplayer > xenemy &&
+            yplayer < yenemy + alturaenemy &&
+            yplayer + alturaplayer > yenemy) {
             return true; 
         }
         return false; 
@@ -141,14 +141,14 @@ public class Game extends JFrame{
                     posPlayerX += 20;
                     lPlayer.setIcon(iconPlayer_direito);
                 }
-                lPlayer.setBounds(posPlayerX, posPlayerY, 120, 120);
+                lPlayer.setBounds(posPlayerX, posPlayerY, 91, 113);
                 
                 //abordagem da colisão
-                if (colisao(lPlayer, lNPC)) {
-                System.out.println("Player e NPC colidiram");
-                remove(lFistPart);
+                if (colisao(lPlayer, lENEMY)) {
+                System.out.println("Player e enemy colidiram");
+                remove(lMAP);
                 remove(lPlayer);
-                remove(lNPC);
+                remove(lENEMY);
                 add(lWIN);
                 repaint();
                
@@ -158,7 +158,7 @@ public class Game extends JFrame{
             @Override
             public void keyReleased(KeyEvent e) {
             }
-           //   "System.out.println(e.getKeyCode());" ultilizado para identificar a numeração das teclas
+           //"System.out.println(e.getKeyCode());" ultilizado para identificar a numeração das teclas
         });
         
         }
