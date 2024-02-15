@@ -36,7 +36,7 @@ public class Game extends JFrame{
     ImageIcon iconPlayer_direito  = new ImageIcon(getClass().getResource("/res/Player_direito.png"));
     ImageIcon iconEnemy           = new ImageIcon(getClass().getResource("/res/enemy.png"));
     ImageIcon iconWIN             = new ImageIcon(getClass().getResource("/res/you_win.jpg"));
-    
+
     JLabel lMAP = new JLabel(iconMAP);
     JLabel lARV_teto = new JLabel(iconARV_teto);
     JLabel lARV_direita = new JLabel(iconARV_direita);
@@ -61,7 +61,7 @@ public class Game extends JFrame{
     int widthENEMY = 45;
     int heightENEMY = 108;
     
-    //Arvores coords
+    //Árvores cords
     int ARV_tetoX = 280;
     int ARV_tetoY = -95;      
     int widthARV_teto = 1668;
@@ -115,7 +115,7 @@ public class Game extends JFrame{
         lENEMY.setBounds(posENEMYX, posENEMYY, widthENEMY, heightENEMY);
         lWIN.setBounds(0, 0, 1920, 1080);
         
-        //Arvores
+        //Árvores
         lARV_teto.setBounds(ARV_tetoX, ARV_tetoY, widthARV_teto, heightARV_teto);
         lARV_direita.setBounds(ARV_direitaX, ARV_direitaY, widthARV_direita, heightARV_direita);
         lARV_baixo.setBounds(ARV_baixoX, ARV_baixoY, widthARV_baixo, heightARV_baixo);
@@ -136,7 +136,7 @@ public class Game extends JFrame{
         setResizable(true);
         setLocationRelativeTo(null);
         
-        //Arvores
+        //Árvores
         add(lARV_baixo);
         add(lARV_esquerda);
         add(lARV_direita);
@@ -145,13 +145,11 @@ public class Game extends JFrame{
         add(lARV_part2);
         add(lARV_part4);
         add(lARV_part3);
-        
-        
+
         add(lENEMY);
         add(lPlayer);
         add(lMAP);
-        
-        
+
      /*   
         setSize resolução
         setDefaultCloseOperation ultizilado para o X da janela fechar o programa
@@ -168,7 +166,7 @@ public class Game extends JFrame{
     
     
     //Colisão ENEMY
-    public boolean colisao(JLabel lPlayer, JLabel lENEMY) {
+    public boolean colisaoWin(JLabel lPlayer, JLabel lENEMY) {
         
         int xplayer = lPlayer.getX();
         int yplayer = lPlayer.getY();
@@ -189,6 +187,66 @@ public class Game extends JFrame{
         }
         return false; 
     }
+
+    //Colisões Árvores
+    public boolean colisaoARV(JLabel lPlayer, JLabel lARV_baixo, JLabel lARV_esquerda, JLabel lARV_direita, JLabel lARV_teto) {
+
+        int xplayer = lPlayer.getX();
+        int yplayer = lPlayer.getY();
+        int larguraplayer = lPlayer.getWidth();
+        int alturaplayer = lPlayer.getHeight();
+
+        int xARV_baixo = lARV_baixo.getX();
+        int yARV_baixo = lARV_baixo.getY();
+        int larguraARV_baixo = lARV_baixo.getWidth();
+        int alturaARV_baixo = lARV_baixo.getHeight();
+
+        int xARV_esquerda = lARV_esquerda.getX();
+        int yARV_esquerda = lARV_esquerda.getY();
+        int larguraARV_esquerda = lARV_esquerda.getWidth();
+        int alturaARV_esquerda = lARV_esquerda.getHeight();
+
+        int xARV_direita = lARV_direita.getX();
+        int yARV_direita = lARV_direita.getY();
+        int larguraARV_direita = lARV_direita.getWidth();
+        int alturaARV_direita = lARV_direita.getHeight();
+
+        int xARV_teto = lARV_teto.getX();
+        int yARV_teto = lARV_teto.getY();
+        int larguraARV_teto = lARV_teto.getWidth();
+        int alturaARV_teto = lARV_teto.getHeight();
+
+        // Verifica se há sobreposição nas coordenadas x e y (PLAYER E ÁRVORE)
+        if (xplayer < xARV_baixo + larguraARV_baixo &&
+                xplayer + larguraplayer > xARV_baixo &&
+                yplayer < yARV_baixo + alturaARV_baixo &&
+                yplayer + alturaplayer > yARV_baixo) {
+            return true;
+        }
+        if (xplayer < xARV_esquerda + larguraARV_esquerda &&
+                xplayer + larguraplayer > xARV_esquerda &&
+                yplayer < yARV_esquerda + alturaARV_esquerda &&
+                yplayer + alturaplayer > yARV_esquerda) {
+            return true;
+        }
+        if (xplayer < xARV_direita + larguraARV_direita &&
+                xplayer + larguraplayer > xARV_direita &&
+                yplayer < yARV_direita + alturaARV_direita &&
+                yplayer + alturaplayer > yARV_direita) {
+            return true;
+        }
+        if (xplayer < xARV_teto + larguraARV_teto &&
+                xplayer + larguraplayer > xARV_teto &&
+                yplayer < yARV_teto + alturaARV_teto &&
+                yplayer + alturaplayer > yARV_teto) {
+            return true;
+        }
+        return false;
+    }
+
+
+
+
     
     
     //Comandos de movimento Player + teste abordagem da colisão
@@ -222,7 +280,7 @@ public class Game extends JFrame{
                 lPlayer.setBounds(posPlayerX, posPlayerY, 91, 113);
                 
                 //abordagem da colisão
-                if (colisao(lPlayer, lENEMY)) {
+                if (colisaoWin(lPlayer, lENEMY)) {
                 System.out.println("Player e enemy colidiram");
                 remove(lMAP);
                 remove(lPlayer);
@@ -238,6 +296,12 @@ public class Game extends JFrame{
                 add(lWIN);
                 repaint();
                
+                }
+                if (colisaoARV(lPlayer, lARV_baixo, lARV_esquerda, lARV_direita, lARV_teto)){
+                    System.out.println("Player e Árvore colidiram");
+                    posPlayerX = 200;
+                    posPlayerY = 790;
+                    repaint();
                 }
             }
 
