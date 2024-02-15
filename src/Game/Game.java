@@ -189,7 +189,7 @@ public class Game extends JFrame{
     }
 
     //Colisões Árvores
-    public boolean colisaoARV(JLabel lPlayer, JLabel lARV_baixo, JLabel lARV_esquerda, JLabel lARV_direita, JLabel lARV_teto) {
+    public boolean colisaoARV(JLabel lPlayer, JLabel lARV_baixo, JLabel lARV_esquerda, JLabel lARV_direita, JLabel lARV_teto, JLabel lARV_part1, JLabel lARV_part2, JLabel lARV_part3, JLabel lARV_part4) {
 
         int xplayer = lPlayer.getX();
         int yplayer = lPlayer.getY();
@@ -216,6 +216,26 @@ public class Game extends JFrame{
         int larguraARV_teto = lARV_teto.getWidth();
         int alturaARV_teto = lARV_teto.getHeight();
 
+        int xARV_part1 = lARV_part1.getX();
+        int yARV_part1 = lARV_part1.getY();
+        int larguraARV_part1 = lARV_part1.getWidth();
+        int alturaARV_part1 = lARV_part1.getHeight();
+
+        int xARV_part2 = lARV_part2.getX();
+        int yARV_part2 = lARV_part2.getY();
+        int larguraARV_part2 = lARV_part2.getWidth();
+        int alturaARV_part2 = lARV_part2.getHeight();
+
+        int xARV_part3 = lARV_part3.getX();
+        int yARV_part3 = lARV_part3.getY();
+        int larguraARV_part3 = lARV_part3.getWidth();
+        int alturaARV_part3 = lARV_part3.getHeight();
+
+        int xARV_part4 = lARV_part4.getX();
+        int yARV_part4 = lARV_part4.getY();
+        int larguraARV_part4 = lARV_part4.getWidth();
+        int alturaARV_part4 = lARV_part4.getHeight();
+
         // Verifica se há sobreposição nas coordenadas x e y (PLAYER E ÁRVORE)
         if (xplayer < xARV_baixo + larguraARV_baixo &&
                 xplayer + larguraplayer > xARV_baixo &&
@@ -239,6 +259,30 @@ public class Game extends JFrame{
                 xplayer + larguraplayer > xARV_teto &&
                 yplayer < yARV_teto + alturaARV_teto &&
                 yplayer + alturaplayer > yARV_teto) {
+            return true;
+        }
+        if (xplayer < xARV_part1 + larguraARV_part1 &&
+                xplayer + larguraplayer > xARV_part1 &&
+                yplayer < yARV_part1 + alturaARV_part1 &&
+                yplayer + alturaplayer > yARV_part1) {
+            return true;
+        }
+        if (xplayer < xARV_part2 + larguraARV_part2 &&
+                xplayer + larguraplayer > xARV_part2 &&
+                yplayer < yARV_part2 + alturaARV_part2 &&
+                yplayer + alturaplayer > yARV_part2) {
+            return true;
+        }
+        if (xplayer < xARV_part3 + larguraARV_part3 &&
+                xplayer + larguraplayer > xARV_part3 &&
+                yplayer < yARV_part3 + alturaARV_part3 &&
+                yplayer + alturaplayer > yARV_part3) {
+            return true;
+        }
+        if (xplayer < xARV_part4 + larguraARV_part4 &&
+                xplayer + larguraplayer > xARV_part4 &&
+                yplayer < yARV_part4 + alturaARV_part4 &&
+                yplayer + alturaplayer > yARV_part4) {
             return true;
         }
         return false;
@@ -297,7 +341,7 @@ public class Game extends JFrame{
                 repaint();
                
                 }
-                if (colisaoARV(lPlayer, lARV_baixo, lARV_esquerda, lARV_direita, lARV_teto)){
+                if (colisaoARV(lPlayer, lARV_baixo, lARV_esquerda, lARV_direita, lARV_teto, lARV_part1, lARV_part2, lARV_part3, lARV_part4)){
                     System.out.println("Player e Árvore colidiram");
                     posPlayerX = 200;
                     posPlayerY = 790;
