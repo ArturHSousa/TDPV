@@ -36,6 +36,8 @@ public class Game extends JFrame{
     ImageIcon iconPlayer_direito  = new ImageIcon(getClass().getResource("/res/Player_direito.png"));
     ImageIcon iconEnemy           = new ImageIcon(getClass().getResource("/res/enemy.png"));
     ImageIcon iconWIN             = new ImageIcon(getClass().getResource("/res/you_win.jpg"));
+    ImageIcon iconNPC             = new ImageIcon(getClass().getResource("/res/NPC.png"));
+    ImageIcon iconDAL             = new ImageIcon(getClass().getResource("/res/dal.png"));
 
     JLabel lMAP = new JLabel(iconMAP);
     JLabel lARV_teto = new JLabel(iconARV_teto);
@@ -49,7 +51,8 @@ public class Game extends JFrame{
     JLabel lPlayer = new JLabel(iconPlayer_Frente);
     JLabel lENEMY = new JLabel(iconEnemy);
     JLabel lWIN = new JLabel(iconWIN);
-    
+    JLabel lNPC = new JLabel(iconNPC);
+    JLabel lDAL = new JLabel(iconDAL);
     
     int posPlayerX = 200;
     int posPlayerY = 790;
@@ -60,6 +63,16 @@ public class Game extends JFrame{
     int posENEMYY = 60;
     int widthENEMY = 45;
     int heightENEMY = 108;
+
+    int posNPCX = 170;
+    int posNPCY = 670;
+    int widthNPC = 45;
+    int heightNPC = 108;
+
+    int posDALX = 210;
+    int posDALY = 500;
+    int widthDAL = 300;
+    int heightDAL = 200;
     
     //Árvores cords
     int ARV_tetoX = 280;
@@ -114,7 +127,9 @@ public class Game extends JFrame{
         lPlayer.setBounds(posPlayerX, posPlayerY, widthPlayer, heightPlayer);
         lENEMY.setBounds(posENEMYX, posENEMYY, widthENEMY, heightENEMY);
         lWIN.setBounds(0, 0, 1920, 1080);
-        
+        lNPC.setBounds(posNPCX, posNPCY, widthNPC, heightNPC);
+        lDAL.setBounds(posDALX, posDALY, widthDAL, heightDAL);
+
         //Árvores
         lARV_teto.setBounds(ARV_tetoX, ARV_tetoY, widthARV_teto, heightARV_teto);
         lARV_direita.setBounds(ARV_direitaX, ARV_direitaY, widthARV_direita, heightARV_direita);
@@ -135,7 +150,11 @@ public class Game extends JFrame{
         setVisible(true);
         setResizable(true);
         setLocationRelativeTo(null);
-        
+
+        //NPC
+        add(lNPC);
+        add(lDAL);
+
         //Árvores
         add(lARV_baixo);
         add(lARV_esquerda);
@@ -337,6 +356,8 @@ public class Game extends JFrame{
                 remove(lARV_part2);
                 remove(lARV_part4);
                 remove(lARV_part3);
+                remove(lNPC);
+                remove(lDAL);
                 add(lWIN);
                 repaint();
                
